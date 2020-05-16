@@ -9,7 +9,7 @@ library(pscl)
 library(parameters)
 library(gt)
 rm(list = ls())
-d1<-read.csv("all_vars_for_analysis.csv")
+d1<-read.csv("all_vars_for_zeroinf_analysis.csv")
 
 d1 %>% select(county,length_of_lockdown, confirmed_cases,confirmed_deaths,POP_ESTIMATE_2018,ICU.Beds, Adult.obesity.percentage, Quality.of.Life.rank, Excessive.drinking.percentage, Population.per.sq.mile, Clinical.Care.rank, Adult.smoking.percentage, Total.Specialist.Physicians..2019., Physical.Environment.rank, Number.of.Tests.with.Results.per.1.000.Population) -> final
 ```
