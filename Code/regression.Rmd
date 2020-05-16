@@ -1,0 +1,39 @@
+---
+title: "Regression"
+output: html_document
+---
+```{r, message=FALSE}
+library(lme4)
+library(tidyverse)
+library(pscl)
+library(parameters)
+library(gt)
+rm(list = ls())
+d1<-read.csv("all_vars_for_analysis.csv")
+
+d1 %>% select(county,length_of_lockdown, confirmed_cases,confirmed_deaths,POP_ESTIMATE_2018,ICU.Beds, Adult.obesity.percentage, Quality.of.Life.rank, Excessive.drinking.percentage, Population.per.sq.mile, Clinical.Care.rank, Adult.smoking.percentage, Total.Specialist.Physicians..2019., Physical.Environment.rank, Number.of.Tests.with.Results.per.1.000.Population) -> final
+```
+
+```{r}
+##Zero-inflated model
+res<-zeroinfl(confirmed_deaths ~ ICU.Beds+Adult.obesity.percentage +length_of_lockdown + Quality.of.Life.rank+ Excessive.drinking.percentage+ Population.per.sq.mile+ Clinical.Care.rank+ Adult.smoking.percentage+ Total.Specialist.Physicians..2019.+ Physical.Environment.rank+ Number.of.Tests.with.Results.per.1.000.Population, offset = log(POP_ESTIMATE_2018), data=final ,dist="negbin")
+summary(res)
+
+x<-model_parameters(res, exponentiate = TRUE)
+x %>% 
+  gt()
+```
+
+```{r}
+##Visualizing the deaths over ICU beds
+final %>% 
+  filter(confirmed_deaths > 20 & ICU.Beds <10) %>% 
+  ggplot(aes(x = ICU.Beds, y = confirmed_deaths))+
+  geom_point()+
+  theme_classic()+
+  ggtitle("Number of deaths in counties over ICU beds per 1000")+
+  xlab("ICU beds per 1000")
+```
+
+
+
