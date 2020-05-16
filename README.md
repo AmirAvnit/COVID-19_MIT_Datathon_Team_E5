@@ -3,7 +3,7 @@ R & Python codes and data used for team's project in the MIT COVID-19 Datathon, 
 https://covid19challenge.mit.edu/datathon/
 
 1. Datasets
-2. Codes
+2. Codes (Python & R)
 3. Team's final presentation slides and recording 
 
 <b> Project objective: </b> Finding sociodemographic and clinical risk factors related to COVID-19 mortality in the United States.
